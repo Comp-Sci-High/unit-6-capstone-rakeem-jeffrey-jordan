@@ -2,26 +2,41 @@
 <html>
 <head>
   <title>Fashion Hub</title>
-  <script src="/index.js"></script>
+  <script src="/script.js" defer></script>
 </head>
 <body>
   <h1>Fashion Items</h1>
 
   <% for(let i = 0; i < items.length; i++) { %>
     <div class="card">
-      <form onsubmit="updateItem(event, '<%= items[i]._id %>')">
-        <input name="name" value="<%= items[i].name %>" />
-        <input name="price" type="number" value="<%= items[i].price %>" />
-        <button type="submit">Update</button>
-      </form>
+     
       <button onclick="deleteItem('<%= items[i]._id %>')">Delete</button>
     </div>
   <% } %>
 
-  <form onsubmit="addItem(event)">
-    <input name="name" placeholder="Item name" />
-    <input name="price" type="number" placeholder="Price" />
-    <button type="submit">Add Item</button>
-  </form>
+  <form>
+  <label>name</label>
+  <input type="text" name="name" required />
+
+  <label>image</label>
+  <input type="text" name="image" />
+
+  <label>category</label>
+  <input type="text" name="category" />
+
+  <label>price</label>
+  <input type="number" name="price" required />
+
+  <label>purchaseLink</label>
+  <input type="text" name="purchaseLink" required />
+
+  <label>size</label>
+  <input type="text" name="size" required />
+
+  <button type="submit">Submit</button>
+</form>
+
 </body>
 </html>
+
+

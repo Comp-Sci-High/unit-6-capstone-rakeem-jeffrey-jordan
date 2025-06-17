@@ -4,6 +4,8 @@ const app = express();
 
 app.use(express.static(__dirname + "/public"));
 
+app.use(express.json());
+
 const Item = mongoose.model('Item', new mongoose.Schema({
   name: String,
   image: String,
@@ -23,18 +25,30 @@ app.get('/api/items', async (req, res) => {
    res.json(items);
 });
 
-app.post('/api/items', async (req, res) => {
-  const newItem = await Item.create(req.body);
+app.post("/new/items", async (req, res) => {
+  const newItem = await new Item({
+   name: req.body.name,
+  image: req.body.image,
+  category: req.body.category,
+  price: req.body.price,
+  purchaseLink: req.body.purchaseLink,
+  size: req.body.size
+  }).save();
+
   res.json(newItem);
 });
 
-app.patch('/api/items/:id', async (req, res) => {
-  const updatedItem = await Item.findByIdAndUpdate(
-    req.params.id,
-    req.body,
-    { new: true }
-  );
-  res.json(updatedItem);
+app.patch("/api/items", async (req, res) => {
+const response = 
+await Item.findOneAndUpdate({
+   name: req.body.name,
+  image: req.body.image,
+  category: req.body.category,
+  price: req.body.price,
+  purchaseLink: req.body.purchaseLink,
+  size: req.body.size
+  })
+res.json(response);
 });
 
 app.delete('/api/items/:id', async (req, res) => {
